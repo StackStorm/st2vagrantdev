@@ -1,0 +1,29 @@
+---
+- name: Install st2 system dependencies
+  become: true
+  apt:
+    state: latest
+    name:
+      - rabbitmq-server
+      - libffi-dev
+      - libssl-dev
+      - rabbitmq-server
+      - libxslt1-dev
+      - libxml2-dev
+      - libyaml-dev
+      - nodejs
+      - npm
+      - nginx
+- name: Add stanley user
+  become: true
+  user:
+    name: stanley
+    comment: Stackstorm User
+- name: Allow stanley user to have passwordless sudo
+  become: true
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^stanley'
+    line: 'stanley ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'

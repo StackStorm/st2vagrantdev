@@ -1,0 +1,5 @@
+---
+- include_tasks: system.yml
+- include_tasks: python.yml
+- include_tasks: mongo.yml
+- include_tasks: repos.yml

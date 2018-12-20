@@ -1,0 +1,13 @@
+---
+- name: Install python system dependencies
+  become: true
+  apt:
+    state: latest
+    name:
+      - python-pip
+      - python-dev
+      - python-setuptools
+- name: Install global python dependencies
+  pip:
+    name:
+      - virtualenv

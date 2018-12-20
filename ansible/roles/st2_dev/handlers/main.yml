@@ -1,0 +1,6 @@
+---
+- name: restart mongo
+  become: yes
+  systemd:
+    name: mongod
+    state: restarted
