@@ -13,7 +13,6 @@
       - libyaml-dev
       - nodejs
       - npm
-      - nginx
 - name: Add stanley user
   become: true
   user:

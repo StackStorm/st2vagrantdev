@@ -1,0 +1,43 @@
+---
+- name: Install NGINX system dependencies
+  become: true
+  apt:
+    state: latest
+    name:
+      - nginx
+      - python-openssl
+- name: Create st2 ssl directory
+  become: yes
+  file:
+    path: /etc/ssl/st2
+    state: directory
+- name: Generate private key for NGINX
+  become: yes
+  openssl_privatekey:
+    path: /etc/ssl/st2/st2.key
+    size: 4096
+- name: Generate certificate request for NGINX
+  become: yes
+  openssl_csr:
+    path: /etc/ssl/st2/st2.csr
+    privatekey_path: /etc/ssl/st2/st2.key
+    country_name: US
+    organization_name: StackStorm
+    email_address: support@stackstorm.com
+    common_name: "{{ ansible_facts['nodename'] }}"
+- name: Generate self-signed certificate for NGINX
+  become: yes
+  openssl_certificate:
+    path: /etc/ssl/st2/st2.crt
+    privatekey_path: /etc/ssl/st2/st2.key
+    csr_path: /etc/ssl/st2/st2.csr
+    provider: selfsigned
+- name: Add st2 config to nginx
+  become: yes
+  lineinfile:
+    path: /etc/nginx/nginx.conf
+    state: present
+    regexp: 'include /etc/nginx/sites-enabled/\*;'
+    line: "\tinclude /home/vagrant/st2/conf/nginx/st2*.conf;"
+  notify:
+      - restart nginx
