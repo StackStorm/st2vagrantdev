@@ -1,5 +1,12 @@
 # Stackstorm Vagrant Dev Environment
 
+NOTE: This repository is for people working on (developing) StackStorm. End users and people who just want
+to quickly try out and test StackStorm using Vagrant should use https://github.com/StackStorm/st2vagrant.
+
+For more information, please refer to https://docs.stackstorm.com/install/vagrant.html.
+
+## Getting Started
+
 To quickly get bootstrapped run the following:
 
 1. Clone repo
