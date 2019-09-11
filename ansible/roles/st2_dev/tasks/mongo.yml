@@ -2,16 +2,14 @@
 - name: Add mongo ppa key
   become: yes
   apt_key:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: EA312927
+    url: https://www.mongodb.org/static/pgp/server-3.4.asc
     state: present
 - name: Add mongo sources list
   become: yes
-  lineinfile: >
-    line="deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse"
-    dest=/etc/apt/sources.list.d/mongodb.list
-    state=present
-    create=yes
+  copy:
+    dest: /etc/apt/sources.list.d/mongodb.list
+    content: >
+        deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse
 - name: Install mongo
   become: yes
   apt:
