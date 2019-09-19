@@ -21,5 +21,4 @@ To quickly get bootstrapped run the following:
 You will likely from here want to share your local `st2` repo with the vagrant image to migrate code 
 more quickly. To sync your changes execute `vagrant rsync` from within this repo. `vagrant rsync` command 
 assumes that the local `st2` repo is accessible as `../st2`. 
-Note: Make sure to run Step-5(`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have everything within 
-`~/st2/local/st2`. 
+Note: Make sure to run Step-5(`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have the PYTHONPATH point to the modules inside `~/st2/local/st2`. 
