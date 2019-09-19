@@ -18,8 +18,8 @@ To quickly get bootstrapped run the following:
 7. Execute `make cli` inside `~/st2`
 8. Execute `./tools/launchdev.sh start -x` inside `~/st2`
 
-You will likely from here want to share your local `st2` repo with the vagrant
-image so migrate code more quickly. Do that by uncommenting the line in the
-`Vagrantfile` to sync folder. This is set to `rsync` by default to avoid slow
-disk performance with live sharing the local folder with the virtual machine. To
-sync your changes execute `vagrant rsync` from within this repo.
+You will likely from here want to share your local `st2` repo with the vagrant image to migrate code 
+more quickly. To sync your changes execute `vagrant rsync` from within this repo. `vagrant rsync` command 
+assumes that the local `st2` repo is accessible as `../st2`. 
+Note: Make sure to run Step-5(`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have everything within 
+`~/st2/local/st2`. 
