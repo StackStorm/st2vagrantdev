@@ -12,13 +12,14 @@ To quickly get bootstrapped run the following:
 1. Clone repo
 2. Execute `vagrant up` inside repo
 3. Execute `vagrant ssh` inside repo
-4. Execute `cd ~/st2` inside virtual machine
-5. Execute `make requirements` inside `~/st2`
-6. Execute `source virtualenv/bin/activate` inside `~/st2`
-7. Execute `make cli` inside `~/st2`
-8. Execute `./tools/launchdev.sh start -x` inside `~/st2`
+4. Execute `cd ~/local/st2` inside virtual machine
+5. Execute `make requirements` inside `~/local/st2`
+6. Execute `source virtualenv/bin/activate` inside `~/local/st2`
+7. Execute `make cli` inside `~/local/st2`
+8. Execute `./tools/launchdev.sh start -x` inside `~/local/st2`
 
 You will likely from here want to share your local `st2` repo with the vagrant image to migrate code 
 more quickly. To sync your changes execute `vagrant rsync` from within this repo. `vagrant rsync` command 
 assumes that the local `st2` repo is accessible as `../st2`. 
-Note: Make sure to run step 5 (`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have the `PYTHONPATH` point to the modules inside `~/st2/local/st2`. 
+
+Note: Make sure to run step 5 (`make requirements`) inside `~/local/st2` instead of `~/st2` to have the `PYTHONPATH` point to the modules inside `~/st2/local/st2`.
