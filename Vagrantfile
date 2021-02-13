@@ -11,11 +11,6 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get -y install python python-setuptools
-  SHELL
-
   config.vm.provision "ansible_local" do |ansible|
     ansible.config_file = "/vagrant/ansible/ansible.cfg"
     ansible.playbook = "/vagrant/ansible/main.yml"
