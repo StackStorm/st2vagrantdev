@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
     vb.memory = 4096
     vb.cpus = 2
     vb.name = "st2-dev-py-" + (ENV['ST2_PYTHON_VERSION'] || "3.6")
+    vb.name = "st2-dev-py-" + (ENV['ST2_PYTHON_VERSION'] || "3.6") + "mongo-" + (ENV['ST2_MONGODB_VERSION'] || "4.0")
   end
 
   config.vm.provision "ansible_local" do |ansible|

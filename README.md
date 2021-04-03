@@ -24,14 +24,17 @@ assumes that the local `st2` repo is accessible as `../st2`.
 
 Note: Make sure to run step 5 (`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have the `PYTHONPATH` point to the modules inside `~/st2/local/st2`. 
 
-### Specifying a Python version
+### Specifying a Python and MongoDB version
 
-By default, the image is provisioned using Python 3.6. If you want to use Python 3.8, you can do
-that by using the following command:
+By default, the image is provisioned using Python 3.6 and Mongo DB 4.0. If you want to us Python
+3.8 and MongoDB 4.4 you can do that by using the following command:
 
 ```bash
-ST2_PYTHON_VERSION=3.8 vagrant up
+ST2_PYTHON_VERSION=3.8 ST2_MONGODB_VERSION=4.4 vagrant up
 ```
 
 Keep in mind that if you re-provision an existing VM with a different Python version, you will nee
 to remove ``~/st2/virtualenv`` directory and run ``make requirements`` again.
+
+To avoid that and if you want to develop against multiple Python versions, you should just
+provision another vagrant VM with a different Python version.
