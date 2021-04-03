@@ -32,14 +32,19 @@ Note: Make sure to run step 5 (`make requirements`) inside `~/local/st2` instead
 ### Specifying a Python and MongoDB version
 
 By default, the image is provisioned using Python 3.6 and Mongo DB 4.0. If you want to us Python
-3.8 and MongoDB 4.4 you can do that by using the following command:
+3.8 and MongoDB 4.4 you can do that editing corresponding variables in ``Vagrantfile``.
 
-```bash
-ST2_PYTHON_VERSION=3.8 ST2_MONGODB_VERSION=4.4 vagrant up
+For example:
+
+```ruby
+...
+PYTHON_VERSION = "3.8"
+MONGODB_VERSION = "4.4"
+...
 ```
 
-Keep in mind that if you re-provision an existing VM with a different Python version, you will nee
-to remove ``~/st2/virtualenv`` directory and run ``make requirements`` again.
+Keep in mind that re-provisioning an existing VM with a different version of Python or MongoDB is
+not supported.
 
-To avoid that and if you want to develop against multiple Python versions, you should just
-provision another vagrant VM with a different Python version.
+If you want to change the version or develop on multiple different versions, you should just create
+a new vagrant VM.

@@ -1,7 +1,13 @@
 #-*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VM_NAME = "st2-dev-py-" + (ENV['ST2_PYTHON_VERSION'] || "3.6") + "-mongo-" + (ENV['ST2_MONGODB_VERSION'] || "4.0")
+# Valid values are 3.6 and 3.8
+PYTHON_VERSION = "3.6"
+
+# Valid values are 4.0 and 4.4
+MONGODB_VERSION = "4.0"
+
+VM_NAME = "st2-dev-py-" + PYTHON_VERSION + "-mongo-" + MONGODB_VERSION
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
@@ -22,8 +28,8 @@ Vagrant.configure("2") do |config|
     ansible.config_file = "/vagrant/ansible/ansible.cfg"
     ansible.playbook = "/vagrant/ansible/main.yml"
     ansible.extra_vars = {
-      python_version: ENV['ST2_PYTHON_VERSION'] || "3.6",
-      mongodb_version: ENV['ST2_MONGODB_VERSION'] || "4.0",
+      python_version: PYTHON_VERSION,
+      mongodb_version: MONGODB_VERSION,
     }
   end
 
