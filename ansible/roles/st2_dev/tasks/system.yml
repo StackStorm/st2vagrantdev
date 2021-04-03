@@ -27,3 +27,18 @@
     regexp: '^stanley'
     line: 'stanley ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
+- name: Generate and add SSH key for stanley user for remote actions
+  become: true
+  ansible.builtin.shell: |
+    if [ -f "/home/stanley/.ssh/authorized_keys" ]; then
+      exit 0
+    fi
+
+    ssh-keygen -b 2048 -t rsa -f "/home/vagrant/.ssh/stanley_rsa" -q -N "" -m pem
+    mkdir -p /home/stanley/.ssh
+    chmod 660 /home/stanley/.ssh
+    chmod +x /home/stanley/.ssh
+    cp /home/vagrant/.ssh/stanley_rsa.pub /home/stanley/.ssh/authorized_keys
+    chmod 660 /home/stanley/.ssh/authorized_keys
+    chown -R stanley: /home/stanley/.ssh/
+    chown -R vagrant: /home/vagrant/.ssh/
