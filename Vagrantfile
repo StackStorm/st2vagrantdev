@@ -7,7 +7,9 @@ PYTHON_VERSION = "3.6"
 # Valid values are 4.0 and 4.4
 MONGODB_VERSION = "4.0"
 
-VM_NAME = "st2-dev-py-" + PYTHON_VERSION + "-mongo-" + MONGODB_VERSION
+VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub( ".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
+
+ANSIBLE_DEBUG = ENV.has_key?('ANSIBLE_DEBUG') ? "vvv" : ""
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
@@ -27,6 +29,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible_local" do |ansible|
     ansible.config_file = "/vagrant/ansible/ansible.cfg"
     ansible.playbook = "/vagrant/ansible/main.yml"
+    ansible.verbose = ANSIBLE_DEBUG
     ansible.extra_vars = {
       python_version: PYTHON_VERSION,
       mongodb_version: MONGODB_VERSION,

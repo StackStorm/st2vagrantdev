@@ -1,5 +1,7 @@
 # Stackstorm Vagrant Dev Environment
 
+[![Build Status](https://github.com/StackStorm/st2vagrantdev/actions/workflows/ci.yaml/badge.svg)](https://github.com/StackStorm/st2vagrantdev/actions/workflows/ci.yaml)
+
 NOTE: This repository is for people working on (developing) StackStorm. End users and people who just want
 to quickly try out and test StackStorm using Vagrant should use https://github.com/StackStorm/st2vagrant.
 
@@ -32,7 +34,8 @@ Note: Make sure to run step 5 (`make requirements`) inside `~/local/st2` instead
 ### Specifying a Python and MongoDB version
 
 By default, the image is provisioned using Python 3.6 and Mongo DB 4.0. If you want to us Python
-3.8 and MongoDB 4.4 you can do that editing corresponding variables in ``Vagrantfile``.
+3.8 and MongoDB 4.4 you can do that editing corresponding variables in ``Vagrantfile`` before
+running ``vagrant up`` / ``vagrant provision``.
 
 For example:
 
@@ -48,3 +51,10 @@ not supported.
 
 If you want to change the version or develop on multiple different versions, you should just create
 a new vagrant VM.
+
+If you want to enable ansible debug logging for the provision step, you can do that by setting
+``ANSIBLE_DEBUG`` environment variable as shown below.
+
+```bash
+ANSIBLE_DEBUG=1 vagrant provision
+```

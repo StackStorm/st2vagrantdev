@@ -26,5 +26,9 @@
 - name: Set python{{ python_version }} as default python 3
   become: true
   ansible.builtin.shell: |
-    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{ python_version }} 1
-    sudo update-alternatives --set python3 /usr/bin/python{{ python_version }}
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{ python_version }} 1
+    update-alternatives --set python3 /usr/bin/python{{ python_version }}
+
+    # We change default python3 binary so we need a hack for apt to still work
+    cd  /usr/lib/python3/dist-packages
+    sudo cp apt_pkg.cpython-36m-x86_64-linux-gnu.so apt_pkg.so || true
