@@ -13,6 +13,7 @@
       - libyaml-dev
       - nodejs
       - npm
+      - shellcheck
 - name: Add stanley user
   become: true
   user:
