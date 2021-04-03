@@ -21,4 +21,17 @@ To quickly get bootstrapped run the following:
 You will likely from here want to share your local `st2` repo with the vagrant image to migrate code 
 more quickly. To sync your changes execute `vagrant rsync` from within this repo. `vagrant rsync` command 
 assumes that the local `st2` repo is accessible as `../st2`. 
+
 Note: Make sure to run step 5 (`make requirements`) inside `~/st2/local/st2` instead of `~/st2` to have the `PYTHONPATH` point to the modules inside `~/st2/local/st2`. 
+
+### Specifying a Python version
+
+By default, the image is provisioned using Python 3.6. If you want to use Python 3.8, you can do
+that by using the following command:
+
+```bash
+ST2_PYTHON_VERSION=3.8 vagrant up
+```
+
+Keep in mind that if you re-provision an existing VM with a different Python version, you will nee
+to remove ``~/st2/virtualenv`` directory and run ``make requirements`` again.

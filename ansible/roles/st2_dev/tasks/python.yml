@@ -10,21 +10,21 @@
   apt:
     state: latest
     name:
-      - python3.6
-      - python3.6-dev
-      - python3.6-venv
+      - python{{ python_version }}
+      - python{{ python_version }}-dev
+      - python{{ python_version }}-venv
       # Needed for python ldap package
       - libsasl2-dev
       - libldap2-dev
       - libssl-dev
 - name: Install pip
   become: true
-  ansible.builtin.shell: curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+  ansible.builtin.shell: curl https://bootstrap.pypa.io/get-pip.py | sudo python{{ python_version }}
 - name: Install virtualenv
   become: true
-  ansible.builtin.shell: python3.6 -m pip install virtualenv
-- name: Set python3.6 as default python 3
+  ansible.builtin.shell: python{{ python_version }} -m pip install virtualenv
+- name: Set python{{ python_version }} as default python 3
   become: true
   ansible.builtin.shell: |
-    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
-    sudo update-alternatives --set python3 /usr/bin/python3.6
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{ python_version }} 1
+    sudo update-alternatives --set python3 /usr/bin/python{{ python_version }}
