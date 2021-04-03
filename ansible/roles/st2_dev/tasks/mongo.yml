@@ -9,7 +9,7 @@
   copy:
     dest: /etc/apt/sources.list.d/mongodb.list
     content: >
-        deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/{{ mongodb_version }} multiverse
+        deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/{{ mongodb_version }} multiverse
 - name: Install mongo
   become: yes
   apt:
