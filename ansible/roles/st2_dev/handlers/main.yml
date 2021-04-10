@@ -9,3 +9,8 @@
   systemd:
     name: nginx
     state: restarted
+- name: restart redis
+  become: yes
+  systemd:
+    name: redis-server
+    state: restarted
