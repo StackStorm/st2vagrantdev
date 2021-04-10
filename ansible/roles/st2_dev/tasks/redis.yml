@@ -1,0 +1,21 @@
+---
+- name: Add source repository into sources list
+  become: true
+  ansible.builtin.apt_repository:
+    update_cache: true
+    repo: ppa:chris-lea/redis-server
+    state: present
+- name: Install apt package
+  become: yes
+  apt:
+    name:
+      - redis-server
+    state: latest
+    update_cache: yes
+  notify:
+      - restart redis
+- name: Enable Redis service
+  become: yes
+  systemd:
+    name: redis-server.service
+    enabled: yes

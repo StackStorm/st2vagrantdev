@@ -58,3 +58,12 @@ If you want to enable ansible debug logging for the provision step, you can do t
 ```bash
 ANSIBLE_DEBUG=1 vagrant provision
 ```
+
+### Installed Versions of Software
+
+Right now the following versions of software are installed during provisioning:
+
+* Python 3.6
+* MongoDB 4.0
+* Redis 6.0
+* Nginx 1.10
