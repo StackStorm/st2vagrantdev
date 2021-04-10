@@ -75,6 +75,7 @@ jobs:
         vagrant ssh -c "dpkg -l  | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
         vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
         vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
+        vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
         vagrant ssh -c "sudo ls -la /home/stanley/.ssh"
         vagrant ssh -c "sudo ls -la /home/vagrant/.ssh"
         vagrant ssh -c "sudo ls -la /home/stanley/.ssh/authorized_keys"
