@@ -70,9 +70,11 @@ jobs:
     # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
     - name: Verify Software Versions And Running Processes
       run: |
-        vagrant ssh -c "python3 --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server"
+        vagrant ssh -c "python3 --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
         vagrant ssh -c "python3 --version | grep ${{ matrix.python_version }}"
         vagrant ssh -c "dpkg -l  | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
+        vagrant ssh -c "dpkg -l  | grep erlang-base | grep 23.3"
+        vagrant ssh -c "dpkg -l  | grep rabbitmq-server | grep 3.8"
         vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
         vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
         vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
