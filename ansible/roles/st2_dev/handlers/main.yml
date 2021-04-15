@@ -14,3 +14,8 @@
   systemd:
     name: redis-server
     state: restarted
+- name: restart rabbitmq-server
+  become: yes
+  systemd:
+    name: rabbitmq-server
+    state: restarted

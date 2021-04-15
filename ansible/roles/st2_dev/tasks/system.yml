@@ -4,10 +4,8 @@
   apt:
     state: latest
     name:
-      - rabbitmq-server
       - libffi-dev
       - libssl-dev
-      - rabbitmq-server
       - libxslt1-dev
       - libxml2-dev
       - libyaml-dev

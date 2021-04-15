@@ -2,6 +2,7 @@
 - include_tasks: system.yml
 - include_tasks: python.yml
 - include_tasks: mongo.yml
+- include_tasks: rabbitmq.yml
 - include_tasks: redis.yml
 - include_tasks: nginx.yml
 - include_tasks: repos.yml
