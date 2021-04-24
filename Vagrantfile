@@ -10,12 +10,12 @@ MONGODB_VERSION = "4.0"
 ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu18.04.1"
 RABBITMQ_VERSION = "3.8.14-1"
 
-VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub( ".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
+VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
 
 ANSIBLE_DEBUG = ENV.has_key?('ANSIBLE_DEBUG') ? "vvv" : ""
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = VM_BOX
   config.vm.hostname = VM_NAME
 
   config.vm.network "private_network", ip: "192.168.50.25"
