@@ -72,9 +72,9 @@ jobs:
       run: |
         vagrant ssh -c "python3 --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
         vagrant ssh -c "python3 --version | grep ${{ matrix.python_version }}"
-        vagrant ssh -c "dpkg -l  | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
-        vagrant ssh -c "dpkg -l  | grep erlang-base | grep 23.3"
-        vagrant ssh -c "dpkg -l  | grep rabbitmq-server | grep 3.8"
+        vagrant ssh -c "dpkg -l | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
+        vagrant ssh -c "dpkg -l | grep erlang-base | grep 23.3"
+        vagrant ssh -c "dpkg -l | grep rabbitmq-server | grep 3.8"
         vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
         vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
         vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
@@ -82,6 +82,10 @@ jobs:
         vagrant ssh -c "sudo ls -la /home/vagrant/.ssh"
         vagrant ssh -c "sudo ls -la /home/stanley/.ssh/authorized_keys"
         vagrant ssh -c "sudo ls -la /home/vagrant/.ssh/stanley_rsa"
+        vagrant ssh -c "env"
+        vagrant ssh -c "env | grep VIRTUALENV_DIR"
+        vagrant ssh -c "env | grep VIRTUALENV_ST2CLIENT_DIR"
+        vagrant ssh -c "env | grep VIRTUALENV_COMPONENTS_DIR"
 
     - name: Verify Create Virtualenv
       run: |
