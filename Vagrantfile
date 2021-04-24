@@ -1,6 +1,9 @@
 #-*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Valid values are: ubuntu/bionic64 for Ubuntu 18.04
+VM_BOX = "ubuntu/bionic64"
+
 # Valid values are 3.6 and 3.8
 PYTHON_VERSION = "3.6"
 
