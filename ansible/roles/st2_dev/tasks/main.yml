@@ -6,3 +6,4 @@
 - include_tasks: redis.yml
 - include_tasks: nginx.yml
 - include_tasks: repos.yml
+- include_tasks: st2.yml

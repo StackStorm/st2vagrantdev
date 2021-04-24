@@ -1,0 +1,10 @@
+---
+- name: Copy over st2 bashrc aliases and utilities
+  copy:
+    src: st2_bash_profile.sh
+    dest: /home/vagrant/st2_bash_profile.sh
+- name: Add basrc entry
+  ansible.builtin.lineinfile:
+    path: /home/vagrant/.bashrc
+    line: source /home/vagrant/st2_bash_profile.sh
+    create: yes
