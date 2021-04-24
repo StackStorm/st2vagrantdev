@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = VM_NAME
 
   config.vm.network "private_network", ip: "192.168.50.25"
-  config.vm.network "forwarded_port", guest: 9101, host: 9101
-  config.vm.network "forwarded_port", guest: 9100, host: 9100
+  config.vm.network "forwarded_port", guest: 9101, host: 9101, auto_correct: true
+  config.vm.network "forwarded_port", guest: 9101, host: 9101, auto_correct: true
 
   config.vm.provider "virtualbox" do |vb|
     # Modify those as you see fit
