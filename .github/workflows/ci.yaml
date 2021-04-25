@@ -42,59 +42,60 @@ jobs:
             mongodb_version: "4.4"
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Cache Vagrant boxes
-      uses: actions/cache@v2
-      with:
-        path: ~/.vagrant.d/boxes
-        key: ${{ runner.os }}-vagrant-ubuntu-bionic64
-        restore-keys: |
-          ${{ runner.os }}-vagrant-
+      - name: Cache Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-ubuntu-bionic64
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
 
-    - name: Clone StackStorm/st2 repo
-      run: |
-        git clone https://github.com/StackStorm/st2.git /tmp/st2
+      - name: Clone StackStorm/st2 repo
+        run: |
+          git clone https://github.com/StackStorm/st2.git /tmp/st2
 
-    - name: Run vagrant up
-      #env:
-      #  ANSIBLE_DEBUG: "true"
-      run: |
-        sed -i".bak" -E -e "s#../st2#/tmp/st2#g" Vagrantfile
-        sed -i".bak" -E -e "s#3.6#${{ matrix.python_version }}#g" Vagrantfile
-        sed -i".bak" -E -e "s#4.0#${{ matrix.mongodb_version }}#g" Vagrantfile
-        cat Vagrantfile
+      - name: Run vagrant up
+        #env:
+        #  ANSIBLE_DEBUG: "true"
+        run: |
+          sed -i".bak" -E -e "s#../st2#/tmp/st2#g" Vagrantfile
+          sed -i".bak" -E -e "s#3.6#${{ matrix.python_version }}#g" Vagrantfile
+          sed -i".bak" -E -e "s#4.0#${{ matrix.mongodb_version }}#g" Vagrantfile
+          cat Vagrantfile
 
-        vagrant up
+          vagrant up
 
-    # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
-    - name: Verify Software Versions And Running Processes
-      run: |
-        vagrant ssh -c "cat /home/vagrant/.bash_profile"
-        vagrant ssh -c "cat /home/vagrant/.st2_python_binary"
-        vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
-        vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version | grep ${{ matrix.python_version }}"
-        vagrant ssh -c "dpkg -l | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
-        vagrant ssh -c "dpkg -l | grep erlang-base | grep 23.3"
-        vagrant ssh -c "dpkg -l | grep rabbitmq-server | grep 3.8"
-        vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
-        vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
-        vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
-        vagrant ssh -c "sudo ls -la /home/stanley/.ssh"
-        vagrant ssh -c "sudo ls -la /home/vagrant/.ssh"
-        vagrant ssh -c "sudo ls -la /home/stanley/.ssh/authorized_keys"
-        vagrant ssh -c "sudo ls -la /home/vagrant/.ssh/stanley_rsa"
-        vagrant ssh -c "/home/vagrant/.st2_bash_profile.sh"
-        vagrant ssh -c "env"
-        vagrant ssh -c "env | grep VIRTUALENV_DIR"
-        vagrant ssh -c "env | grep VIRTUALENV_ST2CLIENT_DIR"
-        vagrant ssh -c "env | grep VIRTUALENV_COMPONENTS_DIR"
+      # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
+      - name: Verify Software Versions And Running Processes
+        run: |
+          vagrant ssh -c "ls -la /home/vagrant"
+          vagrant ssh -c "cat /home/vagrant/.bash_profile"
+          vagrant ssh -c "cat /home/vagrant/.st2_python_binary"
+          vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
+          vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version | grep ${{ matrix.python_version }}"
+          vagrant ssh -c "dpkg -l | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
+          vagrant ssh -c "dpkg -l | grep erlang-base | grep 23.3"
+          vagrant ssh -c "dpkg -l | grep rabbitmq-server | grep 3.8"
+          vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
+          vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
+          vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
+          vagrant ssh -c "sudo ls -la /home/stanley/.ssh"
+          vagrant ssh -c "sudo ls -la /home/vagrant/.ssh"
+          vagrant ssh -c "sudo ls -la /home/stanley/.ssh/authorized_keys"
+          vagrant ssh -c "sudo ls -la /home/vagrant/.ssh/stanley_rsa"
+          vagrant ssh -c "/home/vagrant/.st2_bash_profile.sh"
+          vagrant ssh -c "env"
+          vagrant ssh -c "env | grep VIRTUALENV_DIR"
+          vagrant ssh -c "env | grep VIRTUALENV_ST2CLIENT_DIR"
+          vagrant ssh -c "env | grep VIRTUALENV_COMPONENTS_DIR"
 
-    - name: Verify Create Virtualenv
-      run: |
-        # NOTE: To speed this step in theory we could use shared folder on host and cache
-        # ~/.cache/pip on guest
-        # Verify we can create virtualenv
-        vagrant ssh -c "cd ~/st2 ; make requirements"
-        # Verify we can run tests - NOTE: This will fail for 3.8 until StackStorm/st2 PR is merged
-        #vagrant ssh -c "cd st2 ; source virtualenv/bin/activate ; ./virtualenv/bin/nosetests -s -v st2api/tests/unit/controllers/v1/test_actions.py"
+      - name: Verify Create Virtualenv
+        run: |
+          # NOTE: To speed this step in theory we could use shared folder on host and cache
+          # ~/.cache/pip on guest
+          # Verify we can create virtualenv
+          vagrant ssh -c "cd ~/st2 ; make requirements"
+          # Verify we can run tests - NOTE: This will fail for 3.8 until StackStorm/st2 PR is merged
+          #vagrant ssh -c "cd st2 ; source virtualenv/bin/activate ; ./virtualenv/bin/nosetests -s -v st2api/tests/unit/controllers/v1/test_actions.py"
