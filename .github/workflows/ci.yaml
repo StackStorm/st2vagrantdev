@@ -105,29 +105,9 @@ jobs:
       # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
       - name: Verify Software Versions And Running Processes
         run: |
-          vagrant ssh -c "ls -la /home/vagrant/st2"
-          vagrant ssh -c "ls -la /home/vagrant"
-          vagrant ssh -c "ls -la /home/vagrant/.st2_bash_profile.sh"
-          vagrant ssh -c "cat /home/vagrant/.bash_profile"
-          vagrant ssh -c "cat /home/vagrant/.st2_python_binary"
-          vagrant ssh -c "\$(cat /home/vagrant/.st2_python_binary) --version --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
-          vagrant ssh -c "\$(cat /home/vagrant/.st2_python_binary) --version --version | grep ${{ matrix.python_version }}"
-          vagrant ssh -c "dpkg -l | grep mongodb-org | grep ${{ matrix.mongodb_version }}"
-          vagrant ssh -c "dpkg -l | grep erlang-base | grep 23.3"
-          vagrant ssh -c "dpkg -l | grep rabbitmq-server | grep 3.8"
-          vagrant ssh -c "ps aux | grep mongodb | grep -v grep"
-          vagrant ssh -c "ps aux | grep rabbitmq | grep -v grep"
-          vagrant ssh -c "ps aux | grep redis-server | grep -v grep"
-          vagrant ssh -c "sudo ls -la /home/stanley/.ssh"
-          vagrant ssh -c "sudo ls -la /home/vagrant/.ssh"
-          vagrant ssh -c "sudo ls -la /home/stanley/.ssh/authorized_keys"
-          vagrant ssh -c "sudo ls -la /home/vagrant/.ssh/stanley_rsa"
-          vagrant ssh -c "env"
-          vagrant ssh -c "env | grep VIRTUALENV_DIR"
-          vagrant ssh -c "env | grep VIRTUALENV_ST2CLIENT_DIR"
-          vagrant ssh -c "env | grep VIRTUALENV_COMPONENTS_DIR"
+          vagrant ssh -c "/vagrant/scripts/ci/verify-provision.sh ${{ matrix.python_version }} ${{ matrix.mongodb_version }}"
 
-      - name: Verify Create Virtualenv
+      - name: Verify Create Virtualenv and Run Tests
         run: |
           # NOTE: To speed this step in theory we could use shared folder on host and cache
           # ~/.cache/pip on guest
