@@ -26,6 +26,41 @@ jobs:
           cancel_others: 'true'
           github_token: ${{ github.token }}
 
+  ansible-lint:
+    needs: pre_job
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: 'Python 3.6'
+            python_version: "3.6"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Set up Python (${{ matrix.python-version }})'
+        uses: actions/setup-python@v2
+        with:
+          python-version: '${{ matrix.python-version }}'
+
+      - name: Cache Python Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/pip
+          key: ${{ runner.os }}-v2-python-${{ matrix.python-version }}-${{ hashFiles('lint-requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-v2-python-${{ matrix.python }}-
+
+      - name: Install Python Dependencies
+        run: |
+          pip install -r lint-requirements.txt
+
+      - name: Run Ansible Lint
+        run: |
+          ansible-lint -p ansible/
+
   vagrant-up:
     needs: pre_job
     # Need to run it on OSX since nested virtualization is not supported on Linux runners
