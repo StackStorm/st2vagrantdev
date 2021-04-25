@@ -8,7 +8,7 @@
 - name: Install python system dependencies
   become: true
   apt:
-    state: latest
+    state: present
     name:
       - python{{ python_version }}
       - python{{ python_version }}-dev

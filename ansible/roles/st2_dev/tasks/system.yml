@@ -2,7 +2,7 @@
 - name: Install st2 system dependencies
   become: true
   apt:
-    state: latest
+    state: present
     name:
       - libffi-dev
       - libssl-dev

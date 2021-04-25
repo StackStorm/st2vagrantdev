@@ -12,12 +12,14 @@
 - name: Add RabbitMQ Erlang apt repo list
   become: yes
   copy:
+    mode: 0644
     dest: /etc/apt/sources.list.d/rabbitmq-erlang.list
     content: >
         deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
 - name: Add RabbitMQ server apt repo list
   become: yes
   copy:
+    mode: 0644
     dest: /etc/apt/sources.list.d/rabbitmq-server.list
     content: >
         deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main

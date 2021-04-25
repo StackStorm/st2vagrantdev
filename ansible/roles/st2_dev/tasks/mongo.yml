@@ -7,6 +7,7 @@
 - name: Add mongo sources list
   become: yes
   copy:
+    mode: 0644
     dest: /etc/apt/sources.list.d/mongodb.list
     content: >
         deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/{{ mongodb_version }} multiverse
@@ -19,7 +20,7 @@
       - mongodb-org-shell
       - mongodb-org-tools
       - mongodb-org-mongos
-    state: latest
+    state: present
     update_cache: yes
   notify:
       - restart mongo
