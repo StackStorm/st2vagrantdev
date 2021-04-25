@@ -22,7 +22,7 @@ export VIRTUALENV_COMPONENTS_DIR=virtualenv-components-py${PYTHON_VERSION_SHORT_
 
 if [ "${PRINT_INFO}" = "1" ]; then
     echo ""
-    echo "Using Python 3 binary for Make targets: ${PYTHON_BINARY} (${PYTHON_VERSION})"
+    echo "Using Python 3 binary for make targets: ${PYTHON_BINARY} (${PYTHON_VERSION})"
     echo ""
     echo "VIRTUALENV_DIR=${VIRTUALENV_DIR}"
     echo "VIRTUALENV_ST2CLIENT_DIR=${VIRTUALENV_ST2CLIENT_DIR}"
@@ -35,5 +35,8 @@ if [ -d "/home/vagrant/st2" ]; then
 
     if [ -f "${VIRTUALENV_DIR}/bin/activate" ]; then
         source "${VIRTUALENV_DIR}/bin/activate"
+    else
+        echo "${VIRTUALENV_DIR} directory doesn't exist."
+        echo "You should go to ~/st2 and run make requirements to create virtualenv"
     fi
 fi
