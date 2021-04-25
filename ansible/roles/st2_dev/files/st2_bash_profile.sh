@@ -5,7 +5,7 @@ PRINT_INFO=${PRINT_INFO:-"1"}
 PYTHON_BINARY_FILE_PATH="/home/vagrant/.st2_python_binary"
 
 if [ ! -f "${PYTHON_BINARY_FILE_PATH}" ]; then
-    echo "${PYTHON_BINARY_FILE_PATH} file doesn't exist. Make sure you ran vagrant provision"
+    >&2 echo "${PYTHON_BINARY_FILE_PATH} file doesn't exist. Make sure you ran vagrant provision"
     return 0
 fi
 
@@ -36,7 +36,7 @@ if [ -d "/home/vagrant/st2" ]; then
     if [ -f "${VIRTUALENV_DIR}/bin/activate" ]; then
         source "${VIRTUALENV_DIR}/bin/activate"
     else
-        echo "${VIRTUALENV_DIR} directory doesn't exist."
-        echo "You should go to ~/st2 and run make requirements to create virtualenv"
+        >&2 echo "/home/vagrant/st2${VIRTUALENV_DIR} directory doesn't exist."
+        >&2 echo "You should go to ~/st2 and run make requirements to create virtualenv"
     fi
 fi
