@@ -134,7 +134,7 @@ jobs:
           # Verify we can create virtualenv
           vagrant ssh -c "cd ~/st2 ; make requirements"
           # Verify we can run tests - NOTE: This will fail for 3.8 until StackStorm/st2 PR is merged
-          vagrant ssh -c "cd ~/st2 ; source virtualenv/bin/activate ; ./virtualenv/bin/nosetests -s -v st2api/tests/unit/controllers/v1/test_actions.py"
+          vagrant ssh -c "cd ~/st2 ; nosetests -s -v st2api/tests/unit/controllers/v1/test_actions.py"
 
   slack-notification:
     name: Slack notification for failed master builds
