@@ -3,8 +3,8 @@
   copy:
     src: st2_bash_profile.sh
     dest: /home/vagrant/.st2_bash_profile.sh
-- name: Add basrc entry
+- name: Add bash_profile entry
   ansible.builtin.lineinfile:
-    path: /home/vagrant/.bashrc
+    path: /home/vagrant/.bash_profile
     line: source /home/vagrant/.st2_bash_profile.sh
     create: yes

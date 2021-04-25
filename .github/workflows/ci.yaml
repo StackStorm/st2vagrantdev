@@ -70,7 +70,7 @@ jobs:
     # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
     - name: Verify Software Versions And Running Processes
       run: |
-        vagrant ssh -c "cat /home/vagrant/.bashrc"
+        vagrant ssh -c "cat /home/vagrant/.bash_profile"
         vagrant ssh -c "cat /home/vagrant/.st2_python_binary"
         vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version ; dpkg -l | grep mongodb-org ; dpkg -l | grep redis-server ; dpkg -l | grep erlang-base ; dpkg -l | grep rabbitmq-server"
         vagrant ssh -c "$(cat /home/vagrant/.st2_python_binary) --version --version | grep ${{ matrix.python_version }}"
