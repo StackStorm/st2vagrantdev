@@ -105,7 +105,7 @@ jobs:
       # NOTE: vagrant ssh -c exists with the same exit code as command which is ran in the VM
       - name: Verify Software Versions And Running Processes
         run: |
-          vagrant ssh -c "ls -la /home/vagran/st2"
+          vagrant ssh -c "ls -la /home/vagrant/st2"
           vagrant ssh -c "ls -la /home/vagrant"
           vagrant ssh -c "ls -la /home/vagrant/.st2_bash_profile.sh"
           vagrant ssh -c "cat /home/vagrant/.bash_profile"
