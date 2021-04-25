@@ -4,6 +4,7 @@ PYTHON_BINARY_FILE_PATH="/home/vagrant/.st2_python_binary"
 
 if [ ! -f "${PYTHON_BINARY_FILE_PATH}" ]; then
     echo "${PYTHON_BINARY_FILE_PATH} file doesn't exist. Make sure you ran vagrant provision"
+    return 0
 fi
 
 PYTHON_BINARY=$(cat ${PYTHON_BINARY_FILE_PATH})
