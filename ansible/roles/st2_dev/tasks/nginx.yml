@@ -2,13 +2,14 @@
 - name: Install NGINX system dependencies
   become: true
   apt:
-    state: latest
+    state: present
     name:
       - nginx
       - python-openssl
 - name: Create st2 ssl directory
   become: yes
   file:
+    mode: 0644
     path: /etc/ssl/st2
     state: directory
 - name: Generate private key for NGINX
@@ -38,6 +39,7 @@
     path: /etc/nginx/nginx.conf
     state: present
     regexp: 'include /etc/nginx/sites-enabled/\*;'
+    # noqa: no-tabs
     line: "\tinclude /home/vagrant/st2/conf/nginx/st2*.conf;"
   notify:
       - restart nginx

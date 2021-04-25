@@ -1,12 +1,12 @@
 ---
-- name: Add repos
-  become: true
-  become_user: "vagrant"
-  git:
-    repo: "https://github.com/StackStorm/{{ item }}.git"
-    dest: "~/{{ item }}"
-    accept_hostkey: yes
-    update: no
-  with_items:
-    - st2
-    - st2web
+#- name: Add repos
+#  become: true
+#  become_user: "vagrant"
+#  git:
+#    repo: "https://github.com/StackStorm/{{ item }}.git"
+#    dest: "~/{{ item }}"
+#    accept_hostkey: yes
+#    update: no
+#  with_items:
+#    - st2
+#    - st2web
