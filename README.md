@@ -31,16 +31,22 @@ automatically reflected inside the virtual machine immediately after you make th
 
 Note: Make sure to run step 5 (`make requirements`) inside `~/st2` to have the `PYTHONPATH` point to the modules inside `~/st2`.
 
-### Specifying a Python and MongoDB version
+### Specifying Distro, Python and MongoDB version
 
-By default, the image is provisioned using Python 3.6 and Mongo DB 4.0. If you want to us Python
-3.8 and MongoDB 4.4 you can do that editing corresponding variables in ``Vagrantfile`` before
-running ``vagrant up`` / ``vagrant provision``.
+By default, the image is provisioned using Python 3.6 and Mongo DB 4.0 on Ubuntu 18.04.
+
+If you want to use a different distro, Python or MOngoDB version, you can do that by editing
+corresponding variables in ``Vagrantfile`` before running ``vagrant up`` / ``vagrant provision``.
 
 For example:
 
 ```ruby
 ...
+# For Ubuntu 18.04 (default)
+VM_BOX = "ubuntu/bionic64"
+# For Ubuntu 20.04
+VM_BOX = "ubuntu/focal64"
+
 PYTHON_VERSION = "3.8"
 MONGODB_VERSION = "4.4"
 ...
