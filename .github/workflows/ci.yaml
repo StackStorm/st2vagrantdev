@@ -134,3 +134,24 @@ jobs:
           vagrant ssh -c "cd ~/st2 ; make requirements"
           # Verify we can run tests - NOTE: This will fail for 3.8 until StackStorm/st2 PR is merged
           #vagrant ssh -c "cd st2 ; source virtualenv/bin/activate ; ./virtualenv/bin/nosetests -s -v st2api/tests/unit/controllers/v1/test_actions.py"
+
+  slack-notification:
+    name: Slack notification for failed master builds
+    if: always()
+    needs:
+      - ansible-lint
+      - vagrant-up
+    runs-on: ubuntu-latest
+    steps:
+      - name: Workflow conclusion
+        # this step creates an environment variable WORKFLOW_CONCLUSION and is the most reliable way to check the status of previous jobs
+        uses: technote-space/workflow-conclusion-action@v2
+      - name: CI Run Failure Slack Notification
+        if: ${{ env.WORKFLOW_CONCLUSION == 'failure' && github.ref == 'refs/heads/master' }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: development
+          status: FAILED
+          color: danger
