@@ -28,6 +28,7 @@
 # depends on a specific Python version
 - name: Write a file which tells st2 which Python version to use for Makefile targets
   ansible.builtin.lineinfile:
+    mode: 0644
     path: /home/vagrant/.st2_python_binary
     line: /usr/bin/python{{ python_version }}
     create: yes
