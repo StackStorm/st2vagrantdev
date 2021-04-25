@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 PRINT_INFO=${PRINT_INFO:-"1"}
+ST2_SHARE_DIR="/home/vagrant/st2"
 
 PYTHON_BINARY_FILE_PATH="/home/vagrant/.st2_python_binary"
 
@@ -30,13 +31,13 @@ if [ "${PRINT_INFO}" = "1" ]; then
     echo ""
 fi
 
-if [ -d "/home/vagrant/st2" ]; then
-    cd "/home/vagrant/st2"
+if [ -d "${ST2_SHARE_DIR}" ]; then
+    cd "${ST2_SHARE_DIR}"
 
     if [ -f "${VIRTUALENV_DIR}/bin/activate" ]; then
         source "${VIRTUALENV_DIR}/bin/activate"
     else
-        >&2 echo "/home/vagrant/st2${VIRTUALENV_DIR} directory doesn't exist."
+        >&2 echo "${ST2_SHARE_DIR}/${VIRTUALENV_DIR} directory doesn't exist."
         >&2 echo "You should go to ~/st2 and run make requirements to create virtualenv"
     fi
 fi
