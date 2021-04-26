@@ -1,9 +1,10 @@
 ---
-- name: Install st2 system dependencies
+- name: Install st2 system and build dependencies
   become: true
   apt:
     state: present
     name:
+      - build-essential
       - libffi-dev
       - libssl-dev
       - libxslt1-dev
