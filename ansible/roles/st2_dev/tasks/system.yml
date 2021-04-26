@@ -24,6 +24,6 @@
     regexp: '^stanley'
     line: 'stanley ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
-- name: Generate and add SSH key for stanley user for remote actions
+- name: Generate and add SSH key for stanley user for remote actions  # noqa: no-changed-when
   become: true
-  shell: bash /vagrant/ansible/roles/st2_dev/files/generate_stanley_key.sh
+  command: bash /vagrant/ansible/roles/st2_dev/files/generate_stanley_key.sh
