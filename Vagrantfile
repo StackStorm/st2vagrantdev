@@ -10,13 +10,18 @@ PYTHON_VERSION = "3.6"
 # Valid values are 4.0 and 4.4
 MONGODB_VERSION = "4.0"
 
-ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu18.04.1"
-RABBITMQ_VERSION = "3.8.14-1"
-
 # ubuntu/bionic-64 -> bionic, ubuntu/focal64 -> focal
 DISTRO_TYPE = VM_BOX.gsub("ubuntu/", "").gsub("64", "")
 
-VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "") + "focal"
+if DISTRO_TYPE == "bionic"
+  ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu18.04.1"
+elsif DISTRO_TYPE == "focal"
+  ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu20.04.1"
+end
+
+RABBITMQ_VERSION = "3.8.14-1"
+
+VM_NAME = "st2-dev-" + DISTRO_TYPE + "-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
 
 ANSIBLE_DEBUG = ENV.has_key?('ANSIBLE_DEBUG') ? "vvv" : ""
 
