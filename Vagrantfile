@@ -13,7 +13,10 @@ MONGODB_VERSION = "4.0"
 ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu18.04.1"
 RABBITMQ_VERSION = "3.8.14-1"
 
-VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
+# ubuntu/bionic-64 -> bionic, ubuntu/focal64 -> focal
+DISTRO_TYPE = VM_BOX.gsub("ubuntu/", "").gsub("64", "")
+
+VM_NAME = "st2-dev-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "") + "focal"
 
 ANSIBLE_DEBUG = ENV.has_key?('ANSIBLE_DEBUG') ? "vvv" : ""
 
@@ -37,6 +40,7 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "/vagrant/ansible/main.yml"
     ansible.verbose = ANSIBLE_DEBUG
     ansible.extra_vars = {
+      distro_type: DISTRO_TYPE,
       python_version: PYTHON_VERSION,
       mongodb_version: MONGODB_VERSION,
       rabbitmq_version: RABBITMQ_VERSION,
