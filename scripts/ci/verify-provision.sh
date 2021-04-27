@@ -6,6 +6,8 @@ set -e
 PYTHON_VERSION=$1
 MONGODB_VERSION=$2
 
+lsb_release -a
+
 ls -la /home/vagrant/st2
 ls -la /home/vagrant
 ls -la /home/vagrant/.st2_bash_profile.sh
