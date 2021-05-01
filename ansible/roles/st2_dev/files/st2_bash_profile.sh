@@ -4,6 +4,7 @@ PRINT_INFO=${PRINT_INFO:-"1"}
 ST2_SHARE_DIR="/home/vagrant/st2"
 
 PYTHON_BINARY_FILE_PATH="/home/vagrant/.st2_python_binary"
+DISTRO_NAME=$(lsb_release -c | awk '{print $2}')
 
 if [ ! -f "${PYTHON_BINARY_FILE_PATH}" ]; then
     >&2 echo "${PYTHON_BINARY_FILE_PATH} file doesn't exist. Make sure you ran vagrant provision"
@@ -17,9 +18,9 @@ export PYTHON_VERSION=${PYTHON_BINARY_NAME}
 
 PYTHON_VERSION_SHORT_STRING=$(${PYTHON_BINARY} --version | sed "s/Python //g" | sed "s/\.//g" | tr -d "\n")
 
-export VIRTUALENV_DIR=virtualenv-py${PYTHON_VERSION_SHORT_STRING}
-export VIRTUALENV_ST2CLIENT_DIR=virtualenv-st2client-py${PYTHON_VERSION_SHORT_STRING}
-export VIRTUALENV_COMPONENTS_DIR=virtualenv-components-py${PYTHON_VERSION_SHORT_STRING}
+export VIRTUALENV_DIR=virtualenv-${DISTRO_NAME}-py${PYTHON_VERSION_SHORT_STRING}
+export VIRTUALENV_ST2CLIENT_DIR=virtualenv-st2client-${DISTRO_NAME}-py${PYTHON_VERSION_SHORT_STRING}
+export VIRTUALENV_COMPONENTS_DIR=virtualenv-components-${DISTRO_NAME}-py${PYTHON_VERSION_SHORT_STRING}
 
 if [ "${PRINT_INFO}" = "1" ]; then
     echo ""

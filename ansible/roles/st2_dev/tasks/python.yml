@@ -17,12 +17,20 @@
       - libsasl2-dev
       - libldap2-dev
       - libssl-dev
-- name: Install pip
+- name: Download pip installer
   become: true
-  ansible.builtin.shell: curl https://bootstrap.pypa.io/get-pip.py | sudo python{{ python_version }}
-- name: Install virtualenv
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/
+    mode: 0755
+# NOTE: In some version of ansible ansible.builtin.{shell,command} is broken
+# https://github.com/ansible/ansible/issues/71817
+- name: Install pip  # noqa: no-changed-when
   become: true
-  ansible.builtin.shell: python{{ python_version }} -m pip install virtualenv
+  command: python{{ python_version }} /tmp/get-pip.py
+- name: Install virtualenv  # noqa: no-changed-when
+  become: true
+  command: python{{ python_version }} -m pip install virtualenv
 # NOTE: We can't update default python3 binary on the system using update
 # alternatives since it breaks apt, and a bunch of other system tools which
 # depends on a specific Python version

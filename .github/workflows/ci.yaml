@@ -69,10 +69,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: 'Python 3.6 + MongoDB 4.0'
+          - name: 'Ubuntu 18.04 + Python 3.6 + MongoDB 4.0'
+            vm_image: "ubuntu/bionic64"
             python_version: "3.6"
             mongodb_version: "4.0"
-          - name: 'Python 3.8 + MongoDB 4.4'
+          - name: 'Ubuntu 18.04 + Python 3.8 + MongoDB 4.4'
+            vm_image: "ubuntu/bionic64"
+            python_version: "3.8"
+            mongodb_version: "4.4"
+          - name: 'Ubuntu 20.04 + Python 3.8 + MongoDB 4.4'
+            vm_image: "ubuntu/focal64"
             python_version: "3.8"
             mongodb_version: "4.4"
 
@@ -83,7 +89,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.vagrant.d/boxes
-          key: ${{ runner.os }}-vagrant-ubuntu-bionic64
+          key: ${{ runner.os }}-vagrant-ubuntu-${{ matrix.vm_image }}
           restore-keys: |
             ${{ runner.os }}-vagrant-
 
@@ -95,9 +101,10 @@ jobs:
         #env:
         #  ANSIBLE_DEBUG: "true"
         run: |
-          sed -i".bak" -E -e "s#\.\./st2#/tmp/st2#g" Vagrantfile
+          sed -i".bak" -E -e "s#ubuntu/bionic64#${{ matrix.vm_image }}#g" Vagrantfile
           sed -i".bak" -E -e "s#3.6#${{ matrix.python_version }}#g" Vagrantfile
           sed -i".bak" -E -e "s#4.0#${{ matrix.mongodb_version }}#g" Vagrantfile
+          sed -i".bak" -E -e "s#\.\./st2#/tmp/st2#g" Vagrantfile
           cat Vagrantfile
 
           vagrant up

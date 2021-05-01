@@ -15,14 +15,14 @@
     mode: 0644
     dest: /etc/apt/sources.list.d/rabbitmq-erlang.list
     content: >
-        deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+        deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu {{ distro_type }} main
 - name: Add RabbitMQ server apt repo list
   become: yes
   copy:
     mode: 0644
     dest: /etc/apt/sources.list.d/rabbitmq-server.list
     content: >
-        deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
+        deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ distro_type }} main
 # This step is needed so correct latest versions of erlang packages get installed
 - name: Install Erlang
   become: yes
