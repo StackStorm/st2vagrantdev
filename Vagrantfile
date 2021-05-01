@@ -14,9 +14,9 @@ MONGODB_VERSION = "4.0"
 DISTRO_TYPE = VM_BOX.gsub("ubuntu/", "").gsub("64", "")
 
 if DISTRO_TYPE == "bionic"
-  ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu18.04.1"
+  ERLANG_VERSION = "1:23.3.2-1rmq1ppa1~ubuntu18.04.1"
 elsif DISTRO_TYPE == "focal"
-  ERLANG_VERSION = "1:23.3.1-1rmq1ppa1~ubuntu20.04.1"
+  ERLANG_VERSION = "1:23.3.2-1rmq1ppa1~ubuntu20.04.1"
 end
 
 RABBITMQ_VERSION = "3.8.14-1"
