@@ -98,8 +98,8 @@ jobs:
           git clone https://github.com/StackStorm/st2.git /tmp/st2
 
       - name: Run vagrant up
-        #env:
-        #  ANSIBLE_DEBUG: "true"
+        env:
+          ANSIBLE_DEBUG: "true"
         run: |
           sed -i".bak" -E -e "s#ubuntu/bionic64#${{ matrix.vm_image }}#g" Vagrantfile
           sed -i".bak" -E -e "s#3.6#${{ matrix.python_version }}#g" Vagrantfile
