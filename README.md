@@ -71,7 +71,7 @@ Right now the following versions of software are installed during provisioning:
 
 * Python 3.6
 * RabbitMQ 3.8
-* Erlang 1.23.3
+* Erlang 24
 * MongoDB 4.0
 * Redis 6.0
 * Nginx 1.10
