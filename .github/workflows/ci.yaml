@@ -102,8 +102,8 @@ jobs:
           ANSIBLE_DEBUG: "true"
         run: |
           sed -i".bak" -E -e "s#ubuntu/bionic64#${{ matrix.vm_image }}#g" Vagrantfile
-          sed -i".bak" -E -e "s#3.6#${{ matrix.python_version }}#g" Vagrantfile
-          sed -i".bak" -E -e "s#4.0#${{ matrix.mongodb_version }}#g" Vagrantfile
+          sed -i".bak" -E -e "s#PYTHON_VERSION = \"3.6\"#PYTHON_VERSION = \"${{ matrix.python_version }}\"#g" Vagrantfile
+          sed -i".bak" -E -e "s#MONGODB_VERSION = \"4.0\"#MONGODB_VERSION = \"${{ matrix.mongodb_version }}\"#g" Vagrantfile
           sed -i".bak" -E -e "s#\.\./st2#/tmp/st2#g" Vagrantfile
           cat Vagrantfile
 

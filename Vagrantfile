@@ -13,15 +13,9 @@ MONGODB_VERSION = "4.0"
 # ubuntu/bionic-64 -> bionic, ubuntu/focal64 -> focal
 DISTRO_TYPE = VM_BOX.gsub("ubuntu/", "").gsub("64", "")
 
-if DISTRO_TYPE == "bionic"
-  ERLANG_VERSION = "1:24.0.1-1rmq1ppa1~ubuntu18.04.1"
-elsif DISTRO_TYPE == "focal"
-  ERLANG_VERSION = "1:24.0.1-1rmq1ppa1~ubuntu20.04.1"
-end
-
 # NOTE: We don't pin erlang to specific patch version since it gets changed
 # often and old versions expunged from the repo
-# ERLANG_VERSION = "1:24.0*"
+ERLANG_VERSION = "1:24.0*"
 RABBITMQ_VERSION = "3.8.16-1"
 
 VM_NAME = "st2-dev-" + DISTRO_TYPE + "-py-" + PYTHON_VERSION.sub(".", "") + "-mongo-" + MONGODB_VERSION.sub(".", "")
