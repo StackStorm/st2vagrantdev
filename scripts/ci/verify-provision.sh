@@ -19,7 +19,7 @@ $(cat /home/vagrant/.st2_python_binary) --version --version ; dpkg -l | grep mon
 $(cat /home/vagrant/.st2_python_binary) --version --version | grep "${PYTHON_VERSION}"
 
 dpkg -l | grep mongodb-org | grep "${MONGODB_VERSION}"
-dpkg -l | grep erlang-base | grep 24.0
+dpkg -l | grep erlang-base | grep 24.1
 dpkg -l | grep rabbitmq-server | grep 3.8
 
 ps aux | grep mongodb | grep -v grep
