@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
     }
   end
 
-  config.vm.synced_folder "../st2", "/home/vagrant/st2", type: "rsync", rsync__exclude: ["virtualenv/", "virtualenv*/"]
+  config.vm.synced_folder "../st2", "/home/vagrant/st2", type: "rsync", rsync__exclude: ["virtualenv/", "virtualenv*/", ".tox/"]
   # Or as an alternative, you can use NFS mounts which are faster and auto-sync
   # config.vm.synced_folder "../st2", "/home/vagrant/local/st2", type: "nfs", nfs_udp: false
 end
